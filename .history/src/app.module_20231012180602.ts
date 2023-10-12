@@ -5,10 +5,8 @@ import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { OrdersModule } from './orders/orders.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
-//npm install class-transformer --save
-//npm install reflect-metadata --save
 
 @Module({
   imports: [

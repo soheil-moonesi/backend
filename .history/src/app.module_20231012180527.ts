@@ -5,17 +5,14 @@ import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { OrdersModule } from './orders/orders.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/entities/user.entity';
-//npm install class-transformer --save
-//npm install reflect-metadata --save
+import { typeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [User],
+      entities: [User, Report],
       synchronize: true,
     }),
     ProductsModule,

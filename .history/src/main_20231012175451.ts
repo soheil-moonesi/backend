@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common/pipes';
-//import validationPipe
+//import validationPipe 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  //The pipe is responsible for validating incoming requests and ensuring that only whitelisted properties are allowed.
+//
   await app.listen(3000);
 }
 bootstrap();
