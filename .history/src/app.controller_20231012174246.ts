@@ -6,8 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
   //2.create instance of appService
   @Get()
-  //3.when GET  request is call in this route of controller and next route of GET
-  // --> it is call the getHello method
+  //3.when GET  request is call in this rou
   getHello(): string {
     return this.appService.getHello();
   }

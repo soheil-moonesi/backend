@@ -7,7 +7,7 @@ export class AppController {
   //2.create instance of appService
   @Get()
   //3.when GET  request is call in this route of controller and next route of GET
-  // --> it is call the getHello method
+  // --> it is call the 
   getHello(): string {
     return this.appService.getHello();
   }
