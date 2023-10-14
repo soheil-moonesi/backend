@@ -30,11 +30,11 @@ export class AuthService {
   ) {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
-    const isMatch = await bcrypt.compare("999", hash);
-    console.log(email,hash,isMatch);
+    const isMatch = await bcrypt.compare('999', hash);
+    const user = this.usersService.create(email, hash, name, lastName);
+
+    console.log(email, hash, isMatch);
   }
-
-
 
   findAll() {
     return `This action returns all auth`;
