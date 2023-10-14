@@ -1,12 +1,12 @@
 ### create a new user
 
-POST http://localhost:3000/auth
+POST http://localhost:3000/auth/signup
 content-type:application/json
 
 {
-    "email":"reza.yarahi@gmail.com",
-    "password":"this is pass",
-    "name":"reza",
+    "email":"mohamad.yarahi@gmail.com",
+    "password":"999",
+    "name":"mohamad+",
     "lastName":"yarahi"
 }
 

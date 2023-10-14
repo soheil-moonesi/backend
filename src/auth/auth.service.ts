@@ -3,6 +3,7 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,20 @@ export class AuthService {
     );
     return 'This action adds a new user in db but it is for test auth route path for more feature';
   }
+
+  async signup(
+    email: string,
+    password: string,
+    name: string,
+    lastName: string,
+  ) {
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(password, salt);
+    const isMatch = await bcrypt.compare("999", hash);
+    console.log(email,hash,isMatch);
+  }
+
+
 
   findAll() {
     return `This action returns all auth`;

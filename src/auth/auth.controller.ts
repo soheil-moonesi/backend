@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
@@ -9,7 +17,19 @@ export class AuthController {
 
   @Post()
   create(@Body() createAuthDto: CreateAuthDto) {
+    //we can send createAuthDto to the service and then destructure it
     return this.authService.create(createAuthDto);
+  }
+
+  @Post('/signup')
+  createUser(@Body() body: CreateAuthDto) {
+    //we can destructure createAuthDto and then send it to service
+    return this.authService.signup(
+      body.email,
+      body.password,
+      body.name,
+      body.lastName,
+    );
   }
 
   @Get()
