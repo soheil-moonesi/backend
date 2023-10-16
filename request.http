@@ -10,6 +10,15 @@ content-type:application/json
     "lastName":"yarahi"
 }
 
+### signin User
+
+POST http://localhost:3000/auth/signin
+content-type:application/json
+
+{
+    "email":"sepehr.moonesi@gmail.com"
+}
+
 
 ### jwt token and find id 
 GET http://localhost:3000/auth/2

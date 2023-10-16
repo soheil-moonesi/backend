@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { signinAuthDto } from './dto/signin-auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -30,6 +31,12 @@ export class AuthController {
       body.name,
       body.lastName,
     );
+  }
+
+  @Post('/signin')
+  signin(@Body() body: signinAuthDto) {
+    console.log('active here');
+    return this.authService.signin(body.email);
   }
 
   @Get()

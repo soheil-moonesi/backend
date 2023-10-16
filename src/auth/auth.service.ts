@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UsersService } from 'src/users/users.service';
@@ -34,6 +34,14 @@ export class AuthService {
     const user = this.usersService.create(email, hash, name, lastName);
 
     console.log(email, hash, isMatch);
+  }
+
+  async signin(email: string) {
+    const [user] = await this.usersService.find(email);
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    console.log(user);
   }
 
   findAll() {

@@ -22,6 +22,11 @@ export class UsersService {
     // (that may have been created with create or retrieved from the database) to the database.
   }
 
+  find(email: string) {
+    const result = this.repo.find({ where: { email } });
+    return result;
+  }
+
   findAll() {
     return `This action returns all users`;
   }
