@@ -36,12 +36,17 @@ export class AuthService {
     console.log(email, hash, isMatch);
   }
 
-  async signin(email: string) {
+  async signin(email: string, password: string) {
     const [user] = await this.usersService.find(email);
     if (!user) {
       throw new NotFoundException('user not found');
     }
-    console.log(user);
+    const passwordDb = user.password;
+    if (user.password == passwordDb) {
+      console.log('true password');
+    } else {
+      console.log('false password');
+    }
   }
 
   findAll() {

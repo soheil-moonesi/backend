@@ -36,7 +36,7 @@ export class AuthController {
   @Post('/signin')
   signin(@Body() body: signinAuthDto) {
     console.log('active here');
-    return this.authService.signin(body.email);
+    return this.authService.signin(body.email, body.password);
   }
 
   @Get()
