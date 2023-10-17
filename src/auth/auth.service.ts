@@ -28,12 +28,11 @@ export class AuthService {
     name: string,
     lastName: string,
   ) {
-    const salt = await bcrypt.genSalt();
+    const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
-    const isMatch = await bcrypt.compare('999', hash);
     const user = this.usersService.create(email, hash, name, lastName);
 
-    console.log(email, hash, isMatch);
+    console.log(email, hash);
   }
 
   async signin(email: string, password: string) {
@@ -42,7 +41,10 @@ export class AuthService {
       throw new NotFoundException('user not found');
     }
     const passwordDb = user.password;
-    if (user.password == passwordDb) {
+
+    const isMatch = await bcrypt.compare(password, passwordDb);
+
+    if (isMatch) {
       console.log('true password');
     } else {
       console.log('false password');

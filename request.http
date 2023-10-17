@@ -4,10 +4,10 @@ POST http://localhost:3000/auth/signup
 content-type:application/json
 
 {
-    "email":"mohamad.yarahi@gmail.com",
-    "password":"999",
-    "name":"mohamad+",
-    "lastName":"yarahi"
+    "email":"test2@gmail.com",
+    "password":"test2",
+    "name":"test2",
+    "lastName":"test2"
 }
 
 ### signin User
@@ -16,8 +16,8 @@ POST http://localhost:3000/auth/signin
 content-type:application/json
 
 {
-    "email":"sepehr.moonesi@gmail.com",
-    "password":"9999"
+    "email":"test2@gmail.com",
+    "password":"test"
 }
 
 
