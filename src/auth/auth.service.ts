@@ -28,11 +28,17 @@ export class AuthService {
     name: string,
     lastName: string,
   ) {
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-    const user = this.usersService.create(email, hash, name, lastName);
+    const userExist = await this.usersService.find(email);
+    console.log(userExist);
+    if (userExist.length) {
+      throw new NotFoundException('user in use');
+    } else {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+      const user = this.usersService.create(email, hash, name, lastName);
 
-    console.log(email, hash);
+      console.log(email, hash);
+    }
   }
 
   async signin(email: string, password: string) {
@@ -41,13 +47,19 @@ export class AuthService {
       throw new NotFoundException('user not found');
     }
     const passwordDb = user.password;
-
+    //compare password in signin with hased password in db
     const isMatch = await bcrypt.compare(password, passwordDb);
 
     if (isMatch) {
-      console.log('true password');
+      //note: must use this structure for payload
+      // "iss" (issuer), "sub" (subject), "exp" (expiration time)
+      // "iat" (issued at time), and others.
+      const payload = { x: user.email };
+      //generate jwt token with payload --> user email
+      const token = await this.jwtService.signAsync(payload);
+      console.log(token, payload);
     } else {
-      console.log('false password');
+      throw new NotFoundException('wrong password');
     }
   }
 
