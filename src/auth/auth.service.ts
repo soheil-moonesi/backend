@@ -56,8 +56,9 @@ export class AuthService {
       // "iat" (issued at time), and others.
       const payload = { x: user.email };
       //generate jwt token with payload --> user email
-      const token = await this.jwtService.signAsync(payload);
+      const token = await this.jwtService.signAsync(payload, { expiresIn: '1m' });
       console.log(token, payload);
+      return token
     } else {
       throw new NotFoundException('wrong password');
     }

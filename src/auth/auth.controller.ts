@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { signinAuthDto } from './dto/signin-auth.dto';
-
+import { Response } from 'express';
+import { RolesGuard } from './auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -34,13 +37,20 @@ export class AuthController {
   }
 
   @Post('/signin')
-  signin(@Body() body: signinAuthDto) {
-    console.log('active here');
-    return this.authService.signin(body.email, body.password);
+  async signin(@Body() body: signinAuthDto, @Res() res: Response) {
+    //@Res() decorator provides access to the Response object from the Express.js library
+    const token = await this.authService.signin(body.email, body.password);
+    // to set cookie it must do in controller not service- security reasons
+    // for this reason we get token form service and then set cookie here
+    console.log(token);
+    return res.cookie('jwt', token).send('ok');
+    // it must use return --> because program after set cookie know what to do.
   }
 
-  @Get()
+  @Get('/admin')
+  @UseGuards(RolesGuard)
   findAll() {
+    console.log('ss');
     return this.authService.findAll();
   }
 
